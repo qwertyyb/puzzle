@@ -73,16 +73,13 @@ export default {
         this.current[this.emptyIndex] = this.current[index]
         this.current[index] = temp
         this.emptyIndex = index
-        // console.log(this.current.slice(), this.emptyIndex)
       }
     },
     messUpItems () {
       this.init()
-      // console.log(this.emptyIndex)
       for (var i = 0; i < this.level * this.level * 10; i++) {
         var h = Math.floor(this.emptyIndex / this.level)
         var l = this.emptyIndex % this.level
-        // console.log(h, l)
         if (Math.random() >= 0.5) {
           h = Math.random() >= 0.5 ? h + 1 : h - 1
           h = h < 0 ? h + 2 : h
@@ -93,15 +90,13 @@ export default {
           l = l >= this.level ? l - 2 : l
         }
         var itemIndex = this.level * h + l
-        // console.log(h, l, itemIndex)
         this.switchItem(itemIndex)
       }
     },
     complete () {
-      // console.log(this.current, this.emptyIndex)
       this.solution = new Solution(this.current, this.level, this.destion, this.emptyIndex)
       this.solution.run()
-      // console.log(this.solution.path)
+      console.log(this.solution.path.length)
       this.startMove()
     },
     startMove () {

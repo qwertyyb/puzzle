@@ -32,7 +32,7 @@ State.prototype.getF = function () {
     geometric += Math.sqrt(dh * dh + dl * dl)
     wrongNext = items[i] + 1 !== items[i + 1] ? wrongNext + 1 : wrongNext
   }
-  return 5 * (2 * manhatten + geometric + wrongNext) + this.deepth
+  return 5 * (3 * manhatten + 2 * geometric + 1 * wrongNext) + 1 * this.deepth
 }
 
 export default State
