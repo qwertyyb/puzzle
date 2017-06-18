@@ -41,7 +41,9 @@ export default {
       emptyIndex: -1,
       pic: require('../assets/1.jpg'),
       interval: '',
-      solution: '',
+      solution: {
+        path: 0
+      },
       block: {
         width: 0,
         cell: 0
