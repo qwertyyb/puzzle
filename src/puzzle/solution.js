@@ -28,11 +28,10 @@ Solution.prototype.run = function () {
 
     ++this.searchedCnt
     this.hasSearched[cur.items.toString()] = true
-    // this.printSearchInfo(cur);
 
     if (cur.equal(this.des)) {  // Find goal
       this.constructPath(cur)
-      // console.log('over')
+      this.path.shift()
       return
     }
 
@@ -42,29 +41,29 @@ Solution.prototype.run = function () {
     var child
     if (h - 1 >= 0) {
       child = cur.moveToEmpty(empty - cur.level)
-      // console.log(child)
       if (!this.hasSearched[child.items.toString()]) {
+        child.preDirec = 'up'
         this.states.push(child)
       }
     }
     if (l - 1 >= 0) {
-      // console.log(-1)
       child = cur.moveToEmpty(empty - 1)
       if (!this.hasSearched[child.items.toString()]) {
+        child.preDirec = 'left'
         this.states.push(child)
       }
     }
     if (l + 1 < cur.level) {
-      // console.log(1)
       child = cur.moveToEmpty(empty + 1)
       if (!this.hasSearched[child.items.toString()]) {
+        child.preDirec = 'right'
         this.states.push(child)
       }
     }
     if (h + 1 < cur.level) {
-      // console.log(3)
       child = cur.moveToEmpty(empty + cur.level)
       if (!this.hasSearched[child.items.toString()]) {
+        child.preDirec = 'down'
         this.states.push(child)
       }
     }
@@ -74,6 +73,6 @@ Solution.prototype.constructPath = function (state) {
   if (state.parent) {
     this.constructPath(state.parent)
   }
-  this.path.push(state)
+  this.path.push(state.preDirec)
 }
 export default Solution

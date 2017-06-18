@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Puzzle from './components/Puzzle'
+import Puzzle from './puzzle/Puzzle'
 
 export default {
   name: 'app',

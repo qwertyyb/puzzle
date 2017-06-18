@@ -3,6 +3,7 @@ function State (items, deepth, level, empty) {
   this.deepth = deepth
   this.level = level
   this.empty = empty
+  this.preDirec = null
 }
 State.prototype.moveToEmpty = function (index) {
   var child = new State(this.items.slice(), this.deepth + 1, this.level, this.empty)
