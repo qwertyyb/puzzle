@@ -1,6 +1,15 @@
 <template>
   <div class="container">
     <h1>拼图游戏</h1>
+    <table>
+      <tr>
+        <td class="result"><img :src="pic" alt="最终效果"></td>
+        <td class="info">规则：先选中一个块作为空白块，然后打乱，移动空白块周围的区域将被打乱的块还原
+        <br>
+        自动：自动将打乱的块还原</td>
+      </tr>
+    </table>
+    
     <main @click="clickHandle">
       <!-- <p v-for="(item, index) in current" :key="item" v-if="index != emptyIndex" class="block" 
       @click="clickHandle(index)"
@@ -23,8 +32,10 @@
         </select>
       </label>
       <br><br>
+      <input type="file"accept="image/*"@change="imgChange">
+      <button @click="selectPic">选择图片</button>
       <button @click="messUpItems" :disabled="emptyIndex === -1">打乱</button>
-      <button @click="complete" :disabled="emptyIndex === -1">自动 {{ solution.path.length > 0 ? '('+solution.path.length+')' : '' }}</button>
+      <button @click="complete" :disabled="emptyIndex === -1">自动还原 {{ solution.path.length > 0 ? '('+solution.path.length+')' : '' }}</button>
     </div>
   </div>
 </template>
@@ -54,6 +65,9 @@ export default {
     'level' (to, from) {
       this.init()
       this.emptyIndex = -1
+      this.updateView()
+    },
+    'pic' (to, from) {
       this.updateView()
     }
   },
@@ -235,23 +249,45 @@ export default {
           }
         }
       }
+    },
+    imgChange (event) {
+      var file = event.target.files[0]
+      if (file) {
+        URL.revokeObjectURL(this.pic)
+        this.pic = URL.createObjectURL(file)
+      }
+    },
+    selectPic () {
+      var input = document.querySelector("input[type='file']")
+      input.click()
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .container {
   width: 100%;
-  max-width: 600px;
-  margin-top: 30px;
+  max-width: 500px;
+}
+h1 {
+  margin: 0;
+}
+td.result {
+  width: 23%;
+}
+td.result img {
+  width: 100%;
+}
+td.info{
+  text-align: left;
+  font-weight: bold;
 }
 main {
   position: relative;
   width: 100%;
   padding-bottom: 100%;
-  margin: 20px auto;
+  margin: 10px auto;
 }
 p.block {
   position: absolute;
@@ -264,8 +300,10 @@ p.block {
   width: 100%;
 }
 .controls button {
-  font-size: 24px;
-  margin-left: 30px;
-  margin-right: 30px;
+  font-size: 20px;
+  margin: 2px 10px;
+}
+input[type='file'] {
+  display: none;
 }
 </style>
