@@ -1,0 +1,25 @@
+name: deploy
+
+on:
+  push:
+    branch:
+      master
+
+jobs:
+  deploy:
+    runs_on: macOS－latest
+
+    - use: actions/checkout@v1
+
+    - name: install dependencies
+      run: npm install
+
+    - name: lint
+      run: npm run lint
+
+    - name: build
+      run: npm run build
+    
+    - name: deploy
+      run: npm run deploy
+

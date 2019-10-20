@@ -1,0 +1,19 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs_on: macOS－latest
+
+    - use: actions/checkout@v1
+
+    - name: install dependencies
+      run: npm install
+
+    - name: lint
+      run: npm run lint
+
+    - name: build
+      run: npm run build
+
