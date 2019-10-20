@@ -29,7 +29,7 @@ Solution.prototype.run = function () {
     ++this.searchedCnt
     this.hasSearched[cur.items.toString()] = true
 
-    if (cur.equal(this.des)) {  // Find goal
+    if (cur.equal(this.des)) { // Find goal
       this.constructPath(cur)
       this.path.shift()
       return
